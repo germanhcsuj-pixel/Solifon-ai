@@ -1,0 +1,619 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Solifon AI — Скачать</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.0.3/src/regular/style.css"/>
+<style>
+:root {
+  --bg: #0d0d0e;
+  --surface: #0f0f11;
+  --border: rgba(255,255,255,0.08);
+  --glass: rgba(255,255,255,0.03);
+  --blue: #0044ff;
+  --cyan: #00d4ff;
+  --text: #ffffff;
+  --muted: #666;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Inter', sans-serif;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(0,68,255,0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0,68,255,0.04) 1px, transparent 1px);
+  background-size: 60px 60px;
+  pointer-events: none;
+  z-index: 0;
+}
+
+body::after {
+  content: '';
+  position: fixed;
+  top: -200px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 800px;
+  height: 500px;
+  background: radial-gradient(ellipse at center, rgba(0,68,255,0.12) 0%, transparent 70%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* ── ШАПКА ── */
+.nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  height: 64px;
+  background: rgba(13,13,14,0.8);
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  padding: 0 24px;
+  z-index: 100;
+  justify-content: space-between;
+}
+
+.nav-left {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+/* ── КНОПКА НАЗАД ── */
+.back-btn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.12);
+  color: #fff;
+  font-size: 0.85rem;
+  font-weight: 500;
+  padding: 7px 14px;
+  border-radius: 10px;
+  cursor: pointer;
+  text-decoration: none;
+  transition: 0.2s;
+}
+
+.back-btn:hover {
+  background: rgba(255,255,255,0.1);
+}
+
+.nav-logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: 600;
+  font-size: 1rem;
+  text-decoration: none;
+  color: #fff;
+}
+
+.white-sq {
+  width: 18px; height: 18px;
+  background: #fff;
+  border-radius: 4px;
+  box-shadow: 0 0 15px #fff, 0 0 30px rgba(255,255,255,0.3);
+}
+
+.nav-badge {
+  background: rgba(0,212,255,0.1);
+  border: 1px solid rgba(0,212,255,0.3);
+  color: var(--cyan);
+  font-size: 0.72rem;
+  padding: 3px 10px;
+  border-radius: 20px;
+  font-weight: 500;
+}
+
+/* ── HERO ── */
+.hero {
+  position: relative;
+  z-index: 1;
+  padding: 140px 24px 80px;
+  text-align: center;
+  max-width: 760px;
+  margin: 0 auto;
+}
+
+.hero-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(0,212,255,0.08);
+  border: 1px solid rgba(0,212,255,0.2);
+  color: var(--cyan);
+  font-size: 0.78rem;
+  font-weight: 500;
+  padding: 6px 16px;
+  border-radius: 20px;
+  margin-bottom: 28px;
+  letter-spacing: 0.5px;
+}
+
+.hero-tag span {
+  width: 6px; height: 6px;
+  background: var(--cyan);
+  border-radius: 50%;
+  box-shadow: 0 0 8px var(--cyan);
+  animation: blink 2s infinite;
+}
+
+@keyframes blink {
+  0%,100% { opacity: 1; }
+  50% { opacity: 0.3; }
+}
+
+.hero h1 {
+  font-size: clamp(2.2rem, 6vw, 3.8rem);
+  font-weight: 700;
+  line-height: 1.1;
+  letter-spacing: -1px;
+  margin-bottom: 20px;
+}
+
+.hero h1 .glow {
+  background: linear-gradient(90deg, #fff 0%, var(--cyan) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.hero p {
+  font-size: 1.05rem;
+  color: rgba(255,255,255,0.55);
+  line-height: 1.7;
+  max-width: 540px;
+  margin: 0 auto 48px;
+}
+
+/* ── КНОПКИ СКАЧАТЬ ── */
+.download-buttons {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+}
+
+.download-wrap {
+  position: relative;
+  display: inline-block;
+  width: 280px;
+  height: 60px;
+  border-radius: 20px;
+  overflow: hidden;
+  padding: 2px;
+  background: var(--blue);
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.download-wrap::before {
+  content: '';
+  position: absolute;
+  width: 250%; height: 250%;
+  top: -75%; left: -75%;
+  background: conic-gradient(var(--blue), var(--cyan), transparent 30%, var(--blue), var(--cyan), transparent 70%);
+  animation: rotate 2.5s linear infinite;
+}
+
+@keyframes rotate {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.download-inner {
+  position: relative;
+  z-index: 2;
+  width: 100%; height: 100%;
+  border-radius: 18px;
+  background: linear-gradient(180deg, #1e1e20 0%, #0c0c0e 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  font-weight: 700;
+  font-size: 0.95rem;
+  color: #fff;
+  letter-spacing: 0.5px;
+  transition: 0.2s;
+}
+
+.download-wrap:active .download-inner {
+  transform: scale(0.97);
+}
+
+.download-wrap.secondary {
+  background: rgba(255,255,255,0.08);
+}
+
+.download-wrap.secondary::before {
+  display: none;
+}
+
+.download-wrap.secondary .download-inner {
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.1);
+}
+
+.download-note {
+  margin-top: 6px;
+  font-size: 0.78rem;
+  color: var(--muted);
+}
+
+/* ── ХАРАКТЕРИСТИКИ ── */
+.specs {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+  flex-wrap: wrap;
+  max-width: 760px;
+  margin: 48px auto 0;
+  padding: 0 24px;
+}
+
+.spec-card {
+  background: var(--glass);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 20px 24px;
+  flex: 1;
+  min-width: 140px;
+  max-width: 200px;
+  text-align: center;
+  transition: 0.3s;
+}
+
+.spec-card:hover {
+  border-color: rgba(0,212,255,0.25);
+  background: rgba(0,212,255,0.04);
+}
+
+.spec-icon { font-size: 1.8rem; margin-bottom: 10px; display: block; }
+.spec-label { font-size: 0.72rem; color: var(--muted); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 6px; }
+.spec-value { font-size: 1.1rem; font-weight: 600; color: #fff; }
+
+/* ── ИНСТРУКЦИЯ ── */
+.steps {
+  position: relative;
+  z-index: 1;
+  max-width: 680px;
+  margin: 80px auto 0;
+  padding: 0 24px;
+}
+
+.steps-title {
+  text-align: center;
+  font-size: 1.4rem;
+  font-weight: 600;
+  margin-bottom: 40px;
+  color: rgba(255,255,255,0.9);
+}
+
+.step {
+  display: flex;
+  gap: 20px;
+  margin-bottom: 32px;
+  align-items: flex-start;
+}
+
+.step-num {
+  position: relative;
+  width: 40px; height: 40px;
+  min-width: 40px;
+  border-radius: 50%;
+  overflow: hidden;
+  padding: 1.5px;
+}
+
+.step-num::before {
+  content: '';
+  position: absolute;
+  width: 200%; height: 200%;
+  top: -50%; left: -50%;
+  background: conic-gradient(var(--blue), var(--cyan), transparent 60%);
+  animation: rotate 4s linear infinite;
+}
+
+.step-num-inner {
+  position: relative;
+  z-index: 2;
+  width: 100%; height: 100%;
+  border-radius: 50%;
+  background: #161618;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 0.85rem;
+  color: var(--cyan);
+}
+
+.step-body h3 { font-size: 0.95rem; font-weight: 600; margin-bottom: 5px; color: #fff; }
+.step-body p { font-size: 0.85rem; color: rgba(255,255,255,0.45); line-height: 1.6; }
+.step-body code {
+  background: rgba(0,212,255,0.08);
+  border: 1px solid rgba(0,212,255,0.2);
+  color: var(--cyan);
+  padding: 2px 8px;
+  border-radius: 6px;
+  font-size: 0.82rem;
+  font-family: monospace;
+}
+
+/* ── ФИЧИ ── */
+.features {
+  position: relative;
+  z-index: 1;
+  max-width: 760px;
+  margin: 80px auto 0;
+  padding: 0 24px;
+}
+
+.features-title { text-align: center; font-size: 1.4rem; font-weight: 600; margin-bottom: 32px; }
+
+.features-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+}
+
+@media (max-width: 540px) {
+  .features-grid { grid-template-columns: 1fr; }
+  .specs { flex-direction: column; align-items: center; }
+  .spec-card { max-width: 100%; width: 100%; }
+  .download-wrap { width: 100%; max-width: 320px; }
+}
+
+.feat {
+  background: var(--glass);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 18px 20px;
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  transition: 0.3s;
+}
+
+.feat:hover { border-color: rgba(0,212,255,0.2); background: rgba(0,212,255,0.03); }
+
+.feat-icon {
+  width: 36px; height: 36px; min-width: 36px;
+  background: rgba(0,212,255,0.08);
+  border: 1px solid rgba(0,212,255,0.15);
+  border-radius: 10px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1rem; color: var(--cyan);
+}
+
+.feat h4 { font-size: 0.9rem; font-weight: 600; margin-bottom: 4px; }
+.feat p { font-size: 0.8rem; color: rgba(255,255,255,0.4); line-height: 1.5; }
+
+/* ── НИЖНИЙ БЛОК ── */
+.bottom-cta {
+  position: relative;
+  z-index: 1;
+  text-align: center;
+  padding: 80px 24px 120px;
+}
+
+.bottom-cta h2 { font-size: 1.8rem; font-weight: 700; margin-bottom: 12px; }
+.bottom-cta p { color: rgba(255,255,255,0.4); margin-bottom: 36px; font-size: 0.9rem; }
+
+/* ── FOOTER ── */
+footer {
+  position: relative;
+  z-index: 1;
+  text-align: center;
+  padding: 24px;
+  border-top: 1px solid var(--border);
+  font-size: 0.78rem;
+  color: var(--muted);
+}
+</style>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav class="nav">
+  <div class="nav-left">
+    <!-- КНОПКА НАЗАД -->
+    <a href="#" class="back-btn" onclick="goBack()">
+      ← Назад
+    </a>
+    <a href="#" class="nav-logo">
+      <div class="white-sq"></div>
+      SOLIFON AI
+    </a>
+  </div>
+  <span class="nav-badge">⚡ Offline Edition</span>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-tag">
+    <span></span>
+    Gemma 3 · Работает без интернета
+  </div>
+
+  <h1>
+    <span class="glow">Solifon AI</span><br>
+    Offline
+  </h1>
+
+  <p>
+    Полноценный ИИ-ассистент прямо на твоём устройстве.<br>
+    Модель Gemma 3 · 2.3 ГБ · Работает без интернета · Бесплатно
+  </p>
+
+  <div class="download-buttons">
+    <!-- APK для Android -->
+    <a class="download-wrap" href="https://huggingface.co/spaces/germanhcsuj/Solifon-ai/resolve/main/app-release%20(2).apk" download>
+      <div class="download-inner">
+        📱 Скачать APK (Android)
+      </div>
+    </a>
+    <div class="download-note">Solifon AI · Android приложение</div>
+  </div>
+</section>
+
+<!-- ХАРАКТЕРИСТИКИ -->
+<div class="specs">
+  <div class="spec-card">
+    <span class="spec-icon">🧠</span>
+    <div class="spec-label">Модель</div>
+    <div class="spec-value">Gemma 3</div>
+  </div>
+  <div class="spec-card">
+    <span class="spec-icon">💾</span>
+    <div class="spec-label">Размер</div>
+    <div class="spec-value">2.49 ГБ</div>
+  </div>
+  <div class="spec-card">
+    <span class="spec-icon">📶</span>
+    <div class="spec-label">Интернет</div>
+    <div class="spec-value">Не нужен</div>
+  </div>
+  <div class="spec-card">
+    <span class="spec-icon">🔒</span>
+    <div class="spec-label">Приватность</div>
+    <div class="spec-value">100% локально</div>
+  </div>
+</div>
+
+<!-- КАК УСТАНОВИТЬ -->
+<section class="steps">
+  <div class="steps-title">Как установить</div>
+
+  <div class="step">
+    <div class="step-num"><div class="step-num-inner">1</div></div>
+    <div class="step-body">
+      <h3>Скачай APK</h3>
+      <p>Нажми кнопку выше и дождись загрузки файла <code>app-release.apk</code></p>
+    </div>
+  </div>
+
+  <div class="step">
+    <div class="step-num"><div class="step-num-inner">2</div></div>
+    <div class="step-body">
+      <h3>Разреши установку</h3>
+      <p>Android спросит разрешение — нажми <code>Установить из неизвестных источников</code></p>
+    </div>
+  </div>
+
+  <div class="step">
+    <div class="step-num"><div class="step-num-inner">3</div></div>
+    <div class="step-body">
+      <h3>Установи приложение</h3>
+      <p>Нажми на скачанный файл и нажми <code>Установить</code></p>
+    </div>
+  </div>
+
+  <div class="step">
+    <div class="step-num"><div class="step-num-inner">4</div></div>
+    <div class="step-body">
+      <h3>Готово!</h3>
+      <p>Иконка <code>SOLIFON AI</code> появится на главном экране</p>
+    </div>
+  </div>
+</section>
+
+<!-- ФИЧИ -->
+<section class="features">
+  <div class="features-title">Что внутри</div>
+  <div class="features-grid">
+    <div class="feat">
+      <div class="feat-icon"><i class="ph-brain"></i></div>
+      <div>
+        <h4>Gemma 3 (Google)</h4>
+        <p>Мощная языковая модель работает полностью локально</p>
+      </div>
+    </div>
+    <div class="feat">
+      <div class="feat-icon"><i class="ph-wifi-slash"></i></div>
+      <div>
+        <h4>Без интернета</h4>
+        <p>После установки не нужен интернет. Работает везде</p>
+      </div>
+    </div>
+    <div class="feat">
+      <div class="feat-icon"><i class="ph-shield-check"></i></div>
+      <div>
+        <h4>Полная приватность</h4>
+        <p>Все данные остаются на твоём устройстве</p>
+      </div>
+    </div>
+    <div class="feat">
+      <div class="feat-icon"><i class="ph-chat-circle-dots"></i></div>
+      <div>
+        <h4>Дизайн Solifon AI</h4>
+        <p>Тот же интерфейс — тёмный стиль, удобный чат</p>
+      </div>
+    </div>
+    <div class="feat">
+      <div class="feat-icon"><i class="ph-translate"></i></div>
+      <div>
+        <h4>Казахский, Русский, Английский</h4>
+        <p>Модель понимает и отвечает на трёх языках</p>
+      </div>
+    </div>
+    <div class="feat">
+      <div class="feat-icon"><i class="ph-currency-dollar-simple"></i></div>
+      <div>
+        <h4>Бесплатно навсегда</h4>
+        <p>Нет подписки, нет лимитов</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- НИЖНИЙ CTA -->
+<section class="bottom-cta">
+  <h2>Готов попробовать?</h2>
+  <p>Скачай один раз — пользуйся вечно</p>
+  <a class="download-wrap" style="margin: 0 auto; display:inline-block;" 
+     href="https://huggingface.co/spaces/germanhcsuj/Solifon-ai/resolve/main/app-release%20(2).apk" download>
+    <div class="download-inner">
+      📱 Скачать APK (Android)
+    </div>
+  </a>
+  <div class="download-note" style="margin-top:14px">Создано Томанбаевым Дастаном · Жаксы, Казахстан</div>
+</section>
+
+<footer>
+  © 2026 SOLIFON AI · Powered by Gemma 3
+</footer>
+
+<script>
+function goBack() {
+  // Если открыто внутри iframe (модалка сайта)
+  if (window.parent && window.parent !== window) {
+    try {
+      window.parent.closeModal('downloadModal');
+    } catch(e) {}
+  } else {
+    window.history.back();
+  }
+}
+</script>
+</body>
+</html>
