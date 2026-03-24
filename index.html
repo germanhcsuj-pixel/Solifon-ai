@@ -1255,7 +1255,7 @@ const pwaDismiss = document.getElementById('pwa-dismiss-btn');
 // 1. Регистрируем Service Worker
 if ('serviceWorker' in navigator) {
   window.addEventListener('load', () => {
-  Navigator.serviceWorker.register('/Solifon-ai/sw.js', { scope: '/Solifon-ai/' })
+ Navigator.serviceWorker.register('/Solifon-ai/sw.js', { scope: '/Solifon-ai/' })
       .then(reg => console.log('Solifon SW: Зарегистрирован', reg.scope))
       .catch(err => console.warn('Solifon SW: Ошибка', err));
   });
