@@ -55,6 +55,40 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 
 </head>
 <body class="no-select">
+  <!-- 
+  ДОБАВЬ ЭТО в index.html сразу после <body>
+  Офлайн баннер — показывается когда нет интернета
+-->
+<div id="offline-banner" style="
+  display: none;
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  background: linear-gradient(135deg, #1a0a0a, #0d0d0e);
+  border-bottom: 1px solid rgba(255,80,80,0.3);
+  padding: 12px 20px;
+  z-index: 999999;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  text-align: center;
+">
+  <span style="font-size: 1.2rem;">📡</span>
+  <div>
+    <div style="color: #ff6b6b; font-weight: 600; font-size: 0.9rem;">Нет подключения к интернету</div>
+    <div style="color: rgba(255,255,255,0.5); font-size: 0.75rem;">Интерфейс работает · ИИ недоступен до восстановления связи</div>
+  </div>
+  <button onclick="window.location.reload()" style="
+    background: rgba(255,107,107,0.15);
+    border: 1px solid rgba(255,107,107,0.3);
+    color: #ff6b6b;
+    padding: 5px 12px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 0.8rem;
+  ">Обновить</button>
+</div>
+  
+
   <!-- Google Tag Manager (noscript) -->
 <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-P5MZ4C6S"
 height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
@@ -1364,6 +1398,28 @@ window.addEventListener('appinstalled', () => {
     </div>
   </div>
 </div>
+<script>
+// Офлайн система Solifon AI
+window.addEventListener('online', () => {
+  document.getElementById('offline-banner').style.display = 'none';
+  const sendBtn = document.getElementById('sendBtn');
+  if (sendBtn) { sendBtn.disabled = false; sendBtn.style.opacity = '1'; }
+});
 
+window.addEventListener('offline', () => {
+  document.getElementById('offline-banner').style.display = 'flex';
+  const sendBtn = document.getElementById('sendBtn');
+  if (sendBtn) { sendBtn.disabled = true; sendBtn.style.opacity = '0.4'; }
+});
+
+// Проверяем при загрузке
+if (!navigator.onLine) {
+  window.addEventListener('load', () => {
+    document.getElementById('offline-banner').style.display = 'flex';
+    const sendBtn = document.getElementById('sendBtn');
+    if (sendBtn) { sendBtn.disabled = true; sendBtn.style.opacity = '0.4'; }
+  });
+}
+</script>
 </body>
 </html>
